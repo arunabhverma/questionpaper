@@ -18,7 +18,10 @@ const App = () => {
 
   const saveSets = () => {
     if (state.setName !== "" && typeof window !== "undefined") {
-      let data = [...state.setData, { setName: state.setName }];
+      let data =
+        state.setData?.length > 0
+          ? [...state.setData, { setName: state.setName }]
+          : [{ setName: state.setName }];
       setState((prev) => ({ ...prev, setData: data, setName: "" }));
       localStorage.setItem("Sets", JSON.stringify(data));
     }
@@ -58,18 +61,14 @@ const App = () => {
         </div>
       </div>
       {state.setData?.map((item, index) => (
-        <Link
-        key={`${index}`}
-          href={`/questions/${index}`}
-          className="flex p-5 cursor-pointer rounded-sm mt-10 justify-between self-center items-center bg-purple-300 w-[80%]"
-        >
-          <div className="flex p-5 rounded-sm mt-10 justify-between self-center items-center bg-purple-300 w-[80%]">
-          <div>
-            {item.setName}
-          </div>
-            <button onClick={() => deleteSets()}>X</button>
+        <div key={`${index}`} className="flex self-center w-[80%] mt-10">
+          <Link href={`/questions/${index}`}>
+            <div className="flex p-5 self-center items-center bg-purple-300 w-[100%]">
+              {item.setName}
             </div>
-        </Link>
+          </Link>
+          <button className="flex p-5 justify-center items-center bg-purple-200 w-[5%]" onClick={() => deleteSets()}>X</button>
+        </div>
       ))}
     </div>
   );

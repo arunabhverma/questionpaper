@@ -16,7 +16,7 @@ const Questions = () => {
     if (typeof window !== "undefined" && questionId !== undefined) {
       let fullData = localStorage.getItem("Sets");
       let parseFullData = JSON.parse(fullData);
-      let data = parseFullData.filter((item, index) => index == questionId)[0];
+      let data = parseFullData?.filter((item, index) => index == questionId)[0];
       setState((prev) => ({
         ...prev,
         setData: {
