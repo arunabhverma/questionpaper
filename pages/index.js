@@ -39,7 +39,7 @@ const App = () => {
         <div className="flex justify-center items-center flex-col">
           <div>Paper Sets</div>
 
-          <div className="mt-12">
+          <div className="mt-12 flex">
             <input
               type={"text"}
               className={"w-[300px]"}
@@ -59,6 +59,7 @@ const App = () => {
       </div>
       {state.setData?.map((item, index) => (
         <Link
+        key={`${index}`}
           href={`/questions/${index}`}
           className="flex p-5 cursor-pointer rounded-sm mt-10 justify-between self-center items-center bg-purple-300 w-[80%]"
         >

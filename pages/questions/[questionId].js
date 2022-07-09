@@ -66,7 +66,7 @@ const Questions = () => {
       <div className="flex justify-center align-center, bg-slate-500 p-10">
         <div className="flex justify-center items-center flex-col">
           <div>{state?.setData?.setName}</div>
-          <div className="mt-12">
+          <div className="mt-12 flex">
             <input
               type={"text"}
               className={"w-[300px]"}
@@ -85,7 +85,7 @@ const Questions = () => {
         </div>
       </div>
       {state.setData?.questions?.map((item, index) => (
-        <div className="flex p-5 rounded-sm mt-10 justify-between self-center items-center bg-purple-300 w-[80%]">
+        <div key={`${index}`} className="flex p-5 rounded-sm mt-10 justify-between self-center items-center bg-purple-300 w-[80%]">
           {item.ques}
           <button onClick={() => deleteSets(index)}>X</button>
         </div>
