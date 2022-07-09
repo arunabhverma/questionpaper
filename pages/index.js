@@ -132,6 +132,7 @@ const App = () => {
             console.log('state adn item', _.isEqual(state.selectedMcq, item?.mcq))
             return(
               <div
+              key={`${index}`}
               onClick={() => setState(prev => ({...prev, selectedMcq: item?.mcq }))}
               style={_.isEqual(state.selectedMcq, item?.mcq) ? { border: "1px solid #d0d7e1" }: {}}
               className="flex text-[#505f7a] text-[11px] pl-3 h-12 items-center overflow-scroll bg-[#f4f6fa]/75 rounded-md my-2"
