@@ -208,7 +208,7 @@ const App = () => {
           className="bg-white w-[70%] text-[#505f7a] text-[15px] pl-3 py-3 flex"
         >
           {array.length > 1 ? <div {...dragHandleProps}>
-            <Image src={'/drag.png'} width={25} height={10} /> 
+            <Image alt={'drag'} src={'/drag.png'} width={25} height={10} /> 
             </div>
             : <div className="w-[25]" />}
           <input
@@ -303,7 +303,7 @@ const App = () => {
                 style={{ border: "1px solid #d0d7e1" }}
                 className="bg-white w-[70%] text-[#505f7a] text-[15px] pl-3 py-3 flex"
               >
-                {array.length > 1 ? <Image src={'/drag.png'} width={25} height={10} /> : <div className="w-[25]" />}
+                {array.length > 1 ? <Image alt="drag" src={'/drag.png'} width={25} height={10} /> : <div className="w-[25]" />}
                 <input
                   type={"text"}
                   value={item.question}
@@ -371,7 +371,7 @@ const App = () => {
           {state.questionsSet?.length === 1 &&
           state.questionsSet[0]?.question === "" ? (
             <div className="p-10 flex flex-col justify-evenly items-center text-[#100e20]">
-              <Image src={"/mobile.png"} width={240} height={400} />
+              <Image alt={'mobile'} src={"/mobile.png"} width={240} height={400} />
               <div className="mt-10">Nothing to preview yet!</div>
               <div className="text-center text-[#505f79] mt-5">
                 Add questions on the left and see how they look on a mobile
@@ -381,14 +381,14 @@ const App = () => {
           ) : (
             state.questionsSet?.map((item, index) => {
               return (
-                <div style={{border: '1px solid #d0d7e1'}} className="bg-white rounded-lg m-5 p-4">
+                <div key={`${index}`} style={{border: '1px solid #d0d7e1'}} className="bg-white rounded-lg m-5 p-4">
                   <p>
                   {item.question}
                   </p>
                   <div>
                     {
                       item.options?.mcq?.map((item, index) => 
-                        <div style={{border: '1px solid #d0d7e1', transition: '.2s'}} className={'rounded-md p-2 mt-3 text-[#4740d5] text-center hover:bg-[#f4f6fa]'}>{item}</div>
+                        <div key={`${index}`} style={{border: '1px solid #d0d7e1', transition: '.2s'}} className={'rounded-md p-2 mt-3 text-[#4740d5] text-center hover:bg-[#f4f6fa]'}>{item}</div>
                       )
                     }
                   </div>
