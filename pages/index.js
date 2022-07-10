@@ -1,6 +1,6 @@
 import _ from "lodash";
 import React, { useState } from "react";
-import { DotsVerticalIcon, XCircleIcon } from "@heroicons/react/solid";
+import { ChevronDownIcon, PlusIcon, TrashIcon } from "@heroicons/react/solid";
 import { OutsideAlerter   } from "../components";
 import Image from "next/image";
 
@@ -130,10 +130,6 @@ const App = () => {
         >
           <div className="flex justify-between mb-8 items-center">
             <div className="text-sm">Multiple choices Questions</div>
-            {/* <XCircleIcon
-              onClick={() => closeModal()}
-              className="h-7 w-7 text-purple-400"
-            /> */}
           </div>
           {array.map((item, index, array) => {
             return (
@@ -169,104 +165,9 @@ const App = () => {
     );
   };
 
-  const ListItem = ( { item, itemSelected, dragHandleProps } ) => {
-    const index = item.id
-    const array = state.questionsSet
-    return (
-      <button
-        key={`${index}`}
-        onClick={() =>
-          typeof window !== "undefined" &&
-          setState((prev) => ({
-            ...prev,
-            activeIndex: index,
-          }))
-        }
-        className=" w-[80%] rounded-t-sm flex relative cursor-default"
-      >
-        {state?.activeIndex === index && (
-          <div
-            onClick={() => addQues()}
-            style={{ border: "1px solid #d0d7e1" }}
-            className="absolute top-2 md:top-auto md:w-[50px] md:h-[50px] w-[30px] h-[30px] rounded-full bg-green-400 left-[-35px] md:left-[-70px] shadow-lg flex justify-center items-center flex-col"
-          >
-            +
-          </div>
-        )}
-        {state?.activeIndex === index && array.length > 1 && (
-          <div
-            onClick={() => deleteQues(item, index)}
-            style={{ border: "1px solid #d0d7e1" }}
-            className="absolute top-2 md:top-auto md:w-[50px] md:h-[50px] w-[30px] h-[30px] rounded-full bg-red-400 right-[-35px] md:right-[-70px] shadow-lg flex justify-center items-center flex-col"
-          >
-            -
-          </div>
-        )}
-        <div
-          style={{ border: "1px solid #d0d7e1" }}
-          className="bg-white w-[70%] text-[#505f7a] text-[15px] pl-3 py-3 flex"
-        >
-          {array.length > 1 ? <div {...dragHandleProps}>
-            <Image alt={'drag'} src={'/drag.png'} width={25} height={10} /> 
-            </div>
-            : <div className="w-[25]" />}
-          <input
-            type={"text"}
-            value={item.question}
-            onChange={(e) => {
-              let fullData = state.questionsSet;
-              let data = fullData.map((val) =>
-                val.id === item.id
-                  ? { ...val, question: e.target.value }
-                  : val
-              );
-              setState((prev) => ({ ...prev, questionsSet: data }));
-            }}
-            className={"flex w-full outline-none ml-5"}
-            placeholder={"Type question"}
-          />
-        </div>
-        <div
-          style={{ border: "1px solid #d0d7e1" }}
-          className="flex bg-white overflow-scroll w-[30%] text-[#505f7a] text-[11px] pl-3 h-12 items-center justify-between"
-        >
-          <div className="flex">
-            {item.options?.mcq?.map((item, index, array) => (
-              <div
-                key={`${index}`}
-                style={{
-                  color: getOptionsColor(index, array?.length),
-                  backgroundColor: getOptionsBgColor(index, array.length),
-                }}
-                className={
-                  "px-3 py-1 rounded-full mr-2 whitespace-nowrap"
-                }
-              >
-                {item}
-              </div>
-            ))}
-          </div>
-          <div
-            onClick={() =>
-              setState((prev) => ({
-                ...prev,
-                modal: !prev.modal,
-                selectedMcq: item.options?.mcq,
-              }))
-            }
-            className="mr-2 bg-purple-100 p-2 rounded-full"
-          >
-            <DotsVerticalIcon className="h-3 w-3 text-purple-900 " />
-          </div>
-        </div>
-      </button>
-    );
-  }
-
   return (
     <div className="flex flex-col md:flex-row">
       <div className="w-full h-screen overflow-y-scroll pt-80 pb-48 bg-[#e9eef6] flex flex-col items-center">
-        <Header />
         {state?.questionsSet?.map((item, index, array) => {
           return (
             <button
@@ -278,31 +179,44 @@ const App = () => {
                   activeIndex: index,
                 }))
               }
-              className=" w-[80%] rounded-t-sm flex relative cursor-default"
+              className=" w-[80%] my-3 flex relative cursor-default p-2 bg-white rounded-lg items-center"
             >
-              {state?.activeIndex === index && (
+              <div className="cursor-pointer absolute text-[10px] md:top-auto  bg-white rounded-md right-[-35px] md:right-[-70px] shadow-lg flex justify-center items-center flex-col">
+                {state?.activeIndex === index && <div onClick={() => addQues()} className="min-h-[30px] px-1 py-2 flex flex-col justify-center items-center">
+                <PlusIcon className="w-4 h-4 text-[#4740d5]" />
+                  <div className="hidden md:flex">Question</div>
+                </div>}
+                {state?.activeIndex === index && array.length > 1 && <div onClick={() => deleteQues(item, index)} className="min-h-[30px] px-1 py-2 flex flex-col justify-center items-center">
+                <TrashIcon className="w-4 h-4 text-[#505f7a]" />
+                  <div className="hidden md:flex">Delete</div>
+                </div>}
+              </div>
+              {/* {state?.activeIndex === index && (
                 <div
                   onClick={() => addQues()}
-                  style={{ border: "1px solid #d0d7e1" }}
-                  className="absolute top-2 md:top-auto md:w-[50px] md:h-[50px] w-[30px] h-[30px] rounded-full bg-green-400 left-[-35px] md:left-[-70px] shadow-lg flex justify-center items-center flex-col"
+                  className="cursor-pointer absolute text-[10px] top-2 md:top-auto md:w-[50px] md:h-[50px] w-[30px] h-[30px] bg-white rounded-md left-[-35px] md:left-[-70px] shadow-lg flex justify-center items-center flex-col"
                 >
                   +
+                  Question
                 </div>
               )}
               {state?.activeIndex === index && array.length > 1 && (
                 <div
                   onClick={() => deleteQues(item, index)}
-                  style={{ border: "1px solid #d0d7e1" }}
-                  className="absolute top-2 md:top-auto md:w-[50px] md:h-[50px] w-[30px] h-[30px] rounded-full bg-red-400 right-[-35px] md:right-[-70px] shadow-lg flex justify-center items-center flex-col"
+                  className="cursor-pointer absolute top-2 md:top-auto md:w-[50px] md:h-[50px] w-[30px] h-[30px] right-[-35px] md:right-[-70px] flex justify-center items-center flex-col"
                 >
-                  -
+                  <TrashIcon className="w-5 h-5" />
                 </div>
-              )}
+              )} */}
               <div
-                style={{ border: "1px solid #d0d7e1" }}
+                // style={{ border: "1px solid #d0d7e1" }}
                 className="bg-white w-[70%] text-[#505f7a] text-[15px] pl-3 py-3 flex"
               >
-                {array.length > 1 ? <Image alt="drag" src={'/drag.png'} width={25} height={10} /> : <div className="w-[25]" />}
+                {array.length > 1 ? (
+                  <Image alt="drag" src={"/drag.png"} width={25} height={10} />
+                ) : (
+                  <div className="w-[25]" />
+                )}
                 <input
                   type={"text"}
                   value={item.question}
@@ -320,8 +234,15 @@ const App = () => {
                 />
               </div>
               <div
-                style={{ border: "1px solid #d0d7e1" }}
-                className="flex bg-white overflow-scroll w-[30%] text-[#505f7a] text-[11px] pl-3 h-12 items-center justify-between"
+                style={{ transition: "0.2s" }}
+                className="flex cursor-pointer bg-white overflow-scroll w-[30%] text-[#505f7a] text-[11px] pl-3 h-12 items-center justify-between"
+                onClick={() =>
+                  setState((prev) => ({
+                    ...prev,
+                    modal: !prev.modal,
+                    selectedMcq: item.options?.mcq,
+                  }))
+                }
               >
                 <div className="flex">
                   {item.options?.mcq?.map((item, index, array) => (
@@ -339,19 +260,10 @@ const App = () => {
                     </div>
                   ))}
                 </div>
-                <div
-                  onClick={() =>
-                    setState((prev) => ({
-                      ...prev,
-                      modal: !prev.modal,
-                      selectedMcq: item.options?.mcq,
-                    }))
-                  }
-                  className="mr-2 bg-purple-100 p-2 rounded-full"
-                >
-                  <DotsVerticalIcon className="h-3 w-3 text-purple-900 " />
+                <div className="mr-2 p-2 rounded-full">
+                  <ChevronDownIcon className="h-5 w-5 text-[#505f7a] " />
                 </div>
-                  {state.modal &&state.activeIndex === index && <Modal />}
+                {state.modal && state.activeIndex === index && <Modal />}
               </div>
             </button>
           );
