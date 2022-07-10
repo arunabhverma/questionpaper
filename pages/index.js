@@ -1,9 +1,8 @@
 import _ from "lodash";
 import React, { useState } from "react";
 import { DotsVerticalIcon, XCircleIcon } from "@heroicons/react/solid";
-import { OutsideAlerter, DraggableList   } from "../components";
+import { OutsideAlerter   } from "../components";
 import Image from "next/image";
-import { DragDropContext } from "react-beautiful-dnd";
 
 const array = [
   { mcq: ["Yes", "No", "N/A"] },
