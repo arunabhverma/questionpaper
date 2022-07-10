@@ -121,19 +121,19 @@ const App = () => {
     return (
       <div
         className={
-          "w-screen h-screen absolute top-0 left-0 right-0 bottom-0 bg-black/30 flex justify-center items-center"
+          " absolute z-40 right-0 top-10 flex justify-center items-center"
         }
       >
         <OutsideAlerter
           close={() => closeModal()}
-          className={"bg-white w-[80%] md:w-[50%] shadow-md rounded-md p-8"}
+          className={"bg-white shadow-2xl rounded-md p-8"}
         >
           <div className="flex justify-between mb-8 items-center">
-            <div>Multiple choices Questions</div>
-            <XCircleIcon
+            <div className="text-sm">Multiple choices Questions</div>
+            {/* <XCircleIcon
               onClick={() => closeModal()}
               className="h-7 w-7 text-purple-400"
-            />
+            /> */}
           </div>
           {array.map((item, index, array) => {
             return (
@@ -265,7 +265,7 @@ const App = () => {
 
   return (
     <div className="flex flex-col md:flex-row">
-      <div className="w-full min-h-screen pt-28 pb-48 bg-[#e9eef6] flex flex-col justify-center items-center">
+      <div className="w-full h-screen overflow-y-scroll pt-80 pb-48 bg-[#e9eef6] flex flex-col items-center">
         <Header />
         {state?.questionsSet?.map((item, index, array) => {
           return (
@@ -351,6 +351,7 @@ const App = () => {
                 >
                   <DotsVerticalIcon className="h-3 w-3 text-purple-900 " />
                 </div>
+                  {state.modal &&state.activeIndex === index && <Modal />}
               </div>
             </button>
           );
@@ -397,7 +398,6 @@ const App = () => {
           )}
         </div>
       </div>
-      {state.modal && <Modal />}
     </div>
   );
 };
