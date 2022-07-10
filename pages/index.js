@@ -135,8 +135,9 @@ const App = () => {
             return (
               <div
                 key={`${index}`}
-                onClick={() =>
+                onClick={() => {
                   setState((prev) => ({ ...prev, selectedMcq: item?.mcq }))
+                }
                 }
                 style={
                   _.isEqual(state.selectedMcq, item?.mcq)
@@ -263,8 +264,8 @@ const App = () => {
                 <div className="mr-2 p-2 rounded-full">
                   <ChevronDownIcon className="h-5 w-5 text-[#505f7a] " />
                 </div>
-                {state.modal && state.activeIndex === index && <Modal />}
               </div>
+                {state.modal && state.activeIndex === index && <Modal />}
             </button>
           );
         })}
